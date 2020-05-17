@@ -21,15 +21,21 @@ In terminal, Install Node using these instructions:
 
 https://treehouse.github.io/installation-guides/mac/node-mac.html
 
+
+
 -------------------------------------------------------------------------------------------------------
 
 **Starter Instructions to run this repo:**
+
+## In terminal, run npm install
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+###
 
 ### `npm start`
 
