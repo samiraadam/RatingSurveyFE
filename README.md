@@ -1,3 +1,27 @@
+Things need to run this repo:
+-Terminal
+-Homebrew
+-Node.js
+
+Open Terminal for the following:
+
+**Homebrew:**
+
+Open Terminal
+
+Install Homebrew from Terminal using this command:
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+**NodeJS**
+
+In terminal, Install Node using these instructions:
+
+https://treehouse.github.io/installation-guides/mac/node-mac.html
+
+-------------------------------------------------------------------------------------------------------
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
