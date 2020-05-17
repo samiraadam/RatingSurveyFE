@@ -1,4 +1,5 @@
-Things need to run this repo:
+## Things need to run this repo:
+
 -Terminal
 -Homebrew
 -Node.js
@@ -21,6 +22,7 @@ https://treehouse.github.io/installation-guides/mac/node-mac.html
 
 -------------------------------------------------------------------------------------------------------
 
+**Starter Instructions to run this repo:**
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
