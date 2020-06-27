@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import NavBar from './components/NavBar';
 import './App.css';
-import Department from './components/Department'
-import Login from './components/Login'
-import SignUp from './components/SignUp'
+import Department from './components/User/Department'
+import Login from './components/User/Login'
+import SignUp from './components/User/SignUp'
 import Admin from './components/Admin/Admin'
-import Confirmation from './components/Confirmation'
-import Profile from './components/Profile'
+import Confirmation from './components/Navigation/Confirmation'
+import Profile from './components/Navigation/Profile'
 import AdminHome from './components/Admin/AdminHome'
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
