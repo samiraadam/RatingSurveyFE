@@ -1,30 +1,32 @@
 import React, {Component} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import DepartmentDetails from './DepartmentDetails'
 import axios from 'axios'
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import { Typography } from '@material-ui/core';
 // import Autocomplete from '@material-ui/lab/Autocomplete';
 // import TextField from '@material-ui/core/TextField';
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   formControl: {
+//     margin: theme.spacing(1),
+//     minWidth: 120,
+//   },
+//   selectEmpty: {
+//     marginTop: theme.spacing(2),
+//   },
+// }));
 
 export default class Customers extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      selectedDepartment: 1
+      selectedDepartment: []
     }
   }
 
@@ -42,7 +44,7 @@ export default class Customers extends Component {
 
   render() {
     if (!this.state.departmentList)
-      return (<p>Loading data</p>)
+      return (<p></p>)
     return (<div className="addmargin">
       {/* <div className="col-md-3"> */}
       <Grid
@@ -52,17 +54,23 @@ export default class Customers extends Component {
   alignItems="center"
   className="addmargin"
 >
+<Typography 
+variant="h4"
+style={{margin: "10px" }}
+>Select A Department to Review</Typography>
     <FormControl>
+    {/* <InputLabel id="demo-simple-select-helper-label">Choose A Department</InputLabel> */}
       <Select
       variant='outlined'
       // autoWidth ='true'
-      style={{ width: 300 }}
+      style={{ width: 500, margin: "40px" }}
       >
         {
           this.state.departmentList.data.map(department => 
           // <MenuItem bsStyle="info" key={department.name} className="centeralign">
-
-              <MenuItem style={{ width: 300 }} onClick={() => this.setState({selectedDepartment: department.id})}>
+              <MenuItem 
+              value = {department.name}
+              onClick={() => this.setState({selectedDepartment: department.id})}>
 
               {department.name}
 

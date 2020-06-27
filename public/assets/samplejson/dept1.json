@@ -1,8 +1,8 @@
 {
 	"id": 1,
 	"name": "Computer Science and Cybersecurity",
-	"classes":[
-		{"class": "Intro to Data Stuctures"},
-		{"class": "Data MACHINES"}
-	]
+	"class": "Intro to Data Stuctures",
+	"href": "/intro-to-data",
+	"review": " This class is very difficult. Make sure to continous work on assignments and study for exams.",
+	"score": "3.5 / 5"
 }

@@ -1,14 +1,18 @@
 import React, {Component} from 'react';
 import Panel from 'react-bootstrap/lib/Panel'
 import axios from 'axios'
+import Reviews from './Reviews'
 
 //This Component is a child Component of Customers Component
 export default class CustomerDetails extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      selectedClass: []
+    }
   }
+  
 
   //Function which is called when the component loads for the first time
   componentDidMount() {
@@ -22,6 +26,9 @@ export default class CustomerDetails extends Component {
     if (this.props.val !== prevProps.val) {
       this.getCustomerDetails(this.props.val)
     }
+    // if (!this.props.selectedClass !== prevProps.selectClass) {
+    //   !this.state.customerDetails
+    // }
   }
 
   //Function to Load the customerdetails data from json.
@@ -30,19 +37,20 @@ export default class CustomerDetails extends Component {
       this.setState({customerDetails: response})
     })
   };
+  // : this.state.customerDetails.data.id
 
   render() {
     if (!this.state.customerDetails)
-      return (<p>Loading Data</p>)
+      return (<p></p>)
     return (<div className="customerdetails">
       <Panel bsStyle="info" className="centeralign">
         <Panel.Heading>
-          <Panel.Title componentClass="h3">{this.state.customerDetails.data.name}</Panel.Title>
+          <Panel.Title componentClass="h3">Services Avaliable for Feedback Under {this.state.customerDetails.data.name}</Panel.Title>
         </Panel.Heading>
         <Panel.Body>
-          <h4>Classess Avaliable for Feedback Under {this.state.customerDetails.data.name}</h4>
-          {/* <p>Name : {this.state.customerDetails.data.name}</p> */}
-          <p>Name : {this.state.customerDetails.data.class}</p>
+          {/* <h4>Classess Avaliable for Feedback Under {this.state.customerDetails.data.name}</h4> */}
+          <a onClick={() => this.setState({selectedClass: this.state.customerDetails.data.id })}> {this.state.customerDetails.data.class}</a>
+          {/* <Link href = "">Name : {this.state.customerDetails.data.class}</Link> */}
           {/* <p>Phone : {this.state.customerDetails.data.phone}</p>
           <p>City : {this.state.customerDetails.data.city}</p>
           <p>State : {this.state.customerDetails.data.state}</p>
@@ -52,6 +60,8 @@ export default class CustomerDetails extends Component {
           <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p> */}
         </Panel.Body>
       </Panel>
+
+      <Reviews val={this.state.selectedClass}/>
     </div>)
   }
 }

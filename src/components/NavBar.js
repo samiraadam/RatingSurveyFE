@@ -9,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 // import MenuIcon from '@material-ui/icons/Menu';
 // import SearchIcon from '@material-ui/icons/Search';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Button from '@material-ui/core/Button';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
@@ -124,8 +125,17 @@ export default function NavBar() {
             <MenuIcon />
           </IconButton> */}
 
-          <Typography className={classes.title} variant="h5" noWrap>
-            Uno Rater
+          <IconButton
+          // className={classes.menuButton}
+          >
+            <StarBorderIcon
+            style={{ fontSize: "40px" , color: "white", margin: "0"}}
+            />
+          </IconButton>
+          <Typography className={classes.title} variant="h3" noWrap>
+            {/* <Button href="Home"> */}
+              Uno Rater
+              {/* </Button> */}
           </Typography>
 
             {/* If Search is needed in the Header Bar, expand upon this code below */}
@@ -155,7 +165,9 @@ export default function NavBar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <AccountCircle 
+              style={{ fontSize: "40px" ,margin: "0"}}
+              />
             </IconButton>
           </div>
         </Toolbar>

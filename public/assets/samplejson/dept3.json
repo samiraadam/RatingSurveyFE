@@ -1,5 +1,8 @@
 {
 	"id": 3,
 	"name": "Natural Sciences",
-	"class": "Intro to Data Stuctures"
+	"class": "Chemistry",
+	"href": "/Chemistry",
+	"review": "You will need Chemistry Supplies for this class. They can be found at the Bookstore or even cheaper online. Textbook is optional in this class.",
+	"score": "4.5 / 5"
 }

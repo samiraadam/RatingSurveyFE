@@ -41,6 +41,8 @@ const useStyles = makeStyles((theme) => ({
     // backgroundColor: theme.palette.secondary.main,
     backgroundColor: 'green',
     fontSize: 'large',
+    width: theme.spacing(10),
+    height: theme.spacing(10),
 
   },
   form: {
@@ -60,15 +62,14 @@ export default function SignUp() {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <CheckCircleIcon />
+          <CheckCircleIcon className={classes.avatar}/>
         </Avatar>
         </div>
         <div className={classes.paper}>
         <Typography 
-        // className={classes.avatar}
-        >
-            You have successfully created your account!
-        </Typography>
+variant="h4"
+style={{margin: "10px" }}
+>Creation was Successful!</Typography>
         </div>
         <div>
         <Box mt={5}>

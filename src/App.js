@@ -5,9 +5,10 @@ import './App.css';
 import Department from './components/Department'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
-import Admin from './components/Admin'
+import Admin from './components/Admin/Admin'
 import Confirmation from './components/Confirmation'
 import Profile from './components/Profile'
+import AdminHome from './components/Admin/AdminHome'
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
 
@@ -33,6 +34,7 @@ class App extends Component {
                 <Route exact path='/Confirmation' component={Confirmation} />
                 <Route exact path='/Home' component={Department} />
                 <Route exact path='/Profile' component={Profile} />
+                <Route exact path='/AdminHome' component={AdminHome} />
           </Switch>
       </div>
     </Router>
