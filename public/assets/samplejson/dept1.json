@@ -1,0 +1,8 @@
+{
+	"id": 1,
+	"name": "Computer Science and Cybersecurity",
+	"classes":[
+		{"class": "Intro to Data Stuctures"},
+		{"class": "Data MACHINES"}
+	]
+}

@@ -9,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 // import MenuIcon from '@material-ui/icons/Menu';
 // import SearchIcon from '@material-ui/icons/Search';
+import Button from '@material-ui/core/Button';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const useStyles = makeStyles((theme) => ({
@@ -92,8 +93,18 @@ export default function NavBar() {
       <MenuItem 
       onClick={handleMenuClose}
       href="Profile"
-      >Profile</MenuItem>
+      >
+      <Button
+      href="Profile"
+      >Profile</Button>
+      </MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem 
+      onClick={handleMenuClose}
+      // href="Login"
+      ><Button
+      href="Login"
+      >Logout</Button></MenuItem>
     </Menu>
   );
 

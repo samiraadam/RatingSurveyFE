@@ -1,12 +1,11 @@
-{
+[{
 	"id": 1,
-	"name": "John Smith",
-	"email": "jsmith@test.com",
-	"phone": "123456789",
-	"city": "bangalore",
-	"state": "karnataka",
-	"country": "India",
-	"organization": "Company 1",
-	"jobProfile": "Software Developer",
-	"additionalInfo": "Has Bought a lot of products before and a high Value Customer"
-}
+	"name": "Computer Science and Cybersecurity"
+
+}, {
+	"id": 2,
+	"name": "Mathematics and Statistics"
+}, {
+	"id": 3,
+	"name": "Natural Sciences"
+}]

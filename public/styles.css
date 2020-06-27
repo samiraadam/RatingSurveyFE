@@ -3,6 +3,11 @@
   margin-bottom: 10px;
 }
 
+/* .selector {
+  margin: theme.spacing(1),
+  width: 120,
+} */
+
 .centeralign {
   display: block;
   margin-left: auto;

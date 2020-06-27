@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import NavBar from './components/NavBar';
 import './App.css';
-import Customers from './components/Customers'
+import Department from './components/Department'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import Admin from './components/Admin'
 import Confirmation from './components/Confirmation'
+import Profile from './components/Profile'
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
 
@@ -30,7 +31,8 @@ class App extends Component {
                 <Route exact path='/SignUp' component={SignUp} />
                 <Route exact path='/Admin' component={Admin} />
                 <Route exact path='/Confirmation' component={Confirmation} />
-                <Route exact path='/customerlist' component={Customers} />
+                <Route exact path='/Home' component={Department} />
+                <Route exact path='/Profile' component={Profile} />
           </Switch>
       </div>
     </Router>

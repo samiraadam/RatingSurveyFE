@@ -26,7 +26,7 @@ export default class CustomerDetails extends Component {
 
   //Function to Load the customerdetails data from json.
   getCustomerDetails(id) {
-    axios.get('assets/samplejson/customer' + id + '.json').then(response => {
+    axios.get('assets/samplejson/dept' + id + '.json').then(response => {
       this.setState({customerDetails: response})
     })
   };
@@ -40,15 +40,16 @@ export default class CustomerDetails extends Component {
           <Panel.Title componentClass="h3">{this.state.customerDetails.data.name}</Panel.Title>
         </Panel.Heading>
         <Panel.Body>
-          <p>Name : {this.state.customerDetails.data.name}</p>
-          <p>Email : {this.state.customerDetails.data.email}</p>
-          <p>Phone : {this.state.customerDetails.data.phone}</p>
+          <h4>Classess Avaliable for Feedback Under {this.state.customerDetails.data.name}</h4>
+          {/* <p>Name : {this.state.customerDetails.data.name}</p> */}
+          <p>Name : {this.state.customerDetails.data.class}</p>
+          {/* <p>Phone : {this.state.customerDetails.data.phone}</p>
           <p>City : {this.state.customerDetails.data.city}</p>
           <p>State : {this.state.customerDetails.data.state}</p>
           <p>Country : {this.state.customerDetails.data.country}</p>
           <p>Organization : {this.state.customerDetails.data.organization}</p>
           <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
-          <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p>
+          <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p> */}
         </Panel.Body>
       </Panel>
     </div>)
