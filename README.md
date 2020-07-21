@@ -1,6 +1,12 @@
 ## Welcome to Uno Rater's UI!
 ## Things need to run this repo:
 
+Install these dependencies in the terminal for this project by running these commands:
+
+- npm install
+- npm install @material-ui/core
+- npm install @material-ui/icons
+
 -Terminal
 -Homebrew
 -Node.js
