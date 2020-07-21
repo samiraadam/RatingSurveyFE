@@ -6,6 +6,7 @@ Install these dependencies in the terminal for this project by running these com
 - npm install
 - npm install @material-ui/core
 - npm install @material-ui/icons
+-
 
 -Terminal
 -Homebrew
