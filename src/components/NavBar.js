@@ -134,7 +134,7 @@ export default function NavBar() {
           </IconButton>
           <Typography className={classes.title} variant="h3" noWrap>
             {/* <Button href="Home"> */}
-              Uno Rater
+              Uno-Rater
               {/* </Button> */}
           </Typography>
 
