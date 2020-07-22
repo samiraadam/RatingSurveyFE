@@ -23,19 +23,33 @@ import { makeStyles } from '@material-ui/core/styles';
 //     </Typography>
 //   );
 // }
-function Admin() {
+function DepartmentAdmin() {
     return (
       <Typography variant="body2" color="textPrimary" align="center">
         <Link 
         color="inherit" 
-        href="Login"
+        href="DepartmentAdmin"
         underline ="hover"
         >
-          User Login
+          Department Admin Sign in
         </Link>{''}
       </Typography>
     );
-  }
+}
+
+function UserSignin() {
+  return (
+    <Typography variant="body2" color="textPrimary" align="center">
+      <Link 
+      color="inherit" 
+      href="Login"
+      underline ="hover"
+      >
+        User Sign in
+      </Link>{''}
+    </Typography>
+  );
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -81,7 +95,7 @@ export default function SignInSide() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Admin Sign In
+            System Admin Sign In
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
@@ -116,7 +130,7 @@ export default function SignInSide() {
               variant="contained"
               color="primary"
               className={classes.submit}
-              href="AdminHome"
+              href="SystemAdminDashboard"
             >
               Sign In
             </Button>
@@ -135,11 +149,25 @@ export default function SignInSide() {
             {/* <Box mt={5}>
               <Copyright />
             </Box> */}
-            <Box mt={5}>
+            
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="baseline">
+              
+              <Box mt={5}>
                 <Button>
-                <Admin />
+                  <UserSignin />
                 </Button>
-            </Box>
+              </Box>
+              
+              <Box mt={5}>
+                <Button>
+                <DepartmentAdmin />
+                </Button>
+              </Box>
+              </Grid>
           </form>
         </div>
       </Grid>

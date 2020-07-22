@@ -6,10 +6,10 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Users from './Users';
-import AddUser from './AddUser';
+import Departments from './Departments';
+import UserOperations from './UserOperations';
+import DepartmentOperations from './DepartmentOperations';
 import Typography from '@material-ui/core/Typography';
-import Orders from './Orders';
-
 
 const drawerWidth = 240;
 
@@ -112,7 +112,8 @@ export default function Dashboard() {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           
-          <Typography variant="h3">Admin Dashboard</Typography>
+          <Typography variant="h3">System Admin Dashboard</Typography>
+          <br></br>
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={8} lg={9}>
@@ -123,17 +124,31 @@ export default function Dashboard() {
             {/* Recent Deposits */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
-                <AddUser />
+                <UserOperations />
               </Paper>
             </Grid>
-            {/* Recent Orders */}
-            {/* <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <Orders />
+          </Grid>
+
+        </Container>
+
+        <Container maxWidth="lg" className={classes.container}>
+          
+            <Grid container spacing={3}>
+            {/* Chart */}
+            <Grid item xs={12} md={8} lg={9}>
+              <Paper className={fixedHeightPaper}>
+                <Departments />
               </Paper>
-            </Grid> */}
+            </Grid>
+            {/* Recent Deposits */}
+            <Grid item xs={12} md={4} lg={3}>
+              <Paper className={fixedHeightPaper}>
+                <DepartmentOperations />
+              </Paper>
+            </Grid>
           </Grid>
         </Container>
+
       </main>
     </div>
   );

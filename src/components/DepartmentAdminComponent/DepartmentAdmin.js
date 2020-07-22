@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
+
 function SystemAdmin() {
     return (
       <Typography variant="body2" color="textPrimary" align="center">
@@ -27,15 +28,15 @@ function SystemAdmin() {
     );
 }
 
-function DepartmentAdmin() {
+function UserSignin() {
   return (
     <Typography variant="body2" color="textPrimary" align="center">
       <Link 
       color="inherit" 
-      href="DepartmentAdmin"
+      href="Login"
       underline ="hover"
       >
-        Department Admin Sign in
+        User Sign in
       </Link>{''}
     </Typography>
   );
@@ -86,7 +87,7 @@ export default function SignInSide() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            User Sign in
+            Department Admin Sign in
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
@@ -121,7 +122,7 @@ export default function SignInSide() {
               variant="contained"
               color="primary"
               className={classes.submit}
-              href="Home"
+              href="DepartmentAdminDashboard"
             >
               Sign In
             </Button>
@@ -138,19 +139,18 @@ export default function SignInSide() {
               direction="row"
               justify="center"
               alignItems="baseline">
-
+              
               <Box mt={5}>
                 <Button>
                   <SystemAdmin />
                 </Button>
               </Box>
-
               <Box mt={5}>
                 <Button>
-                <DepartmentAdmin />
+                <UserSignin />
                 </Button>
               </Box>
-              </Grid>
+            </Grid>
           </form>
         </div>
       </Grid>

@@ -15,15 +15,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-function SystemAdminHome() {
+function Signin() {
     return (
       <Typography variant="body2" color="textPrimary" align="center">
         <Link 
         color="inherit" 
-        href="SystemAdminHome"
+        href="Login"
         underline ="hover"
         >
-          Back to system Admin Dashborad
+          Back to sign in Page
         </Link>{''}
       </Typography>
     );
@@ -69,12 +69,12 @@ export default function SignUp() {
         <Typography 
             variant="h4"
             style={{margin: "10px" }}
-            >Role was successfully granted!</Typography>
+            >Account was successfully created!</Typography>
         </div>
         <div>
         <Box mt={5}>
                 <Button>
-                <SystemAdminHome />
+                <Signin />
                 </Button>
             </Box>
         </div>
