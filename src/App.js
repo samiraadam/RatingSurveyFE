@@ -5,10 +5,13 @@ import './App.css';
 import Department from './components/User/Department'
 import Login from './components/User/Login'
 import SignUp from './components/User/SignUp'
-import Admin from './components/Admin/Admin'
+import SystemAdmin from './components/SystemAdminComponent/SystemAdmin'
 import Confirmation from './components/Navigation/Confirmation'
 import Profile from './components/Navigation/Profile'
-import AdminHome from './components/Admin/AdminHome'
+import DepartmentAdmin from './components/DepartmentAdminComponent/DepartmentAdmin';
+import SystemAdminDashboard from './components/SystemAdminComponent/SystemAdminDashboard';
+import DepartmentAdminDashboard from './components/DepartmentAdminComponent/DepartmentAdminDashboard';
+import SignupConfirmation from './components/Navigation/SignupConfirmation'
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
 
@@ -30,11 +33,16 @@ class App extends Component {
                 )}/>
                 <Route exact path='/Login' component={Login} />
                 <Route exact path='/SignUp' component={SignUp} />
-                <Route exact path='/Admin' component={Admin} />
+                <Route exact path='/SystemAdmin' component={SystemAdmin} />
                 <Route exact path='/Confirmation' component={Confirmation} />
+                <Route exact path='/SignupConfirmation' component={SignupConfirmation} />
                 <Route exact path='/Home' component={Department} />
                 <Route exact path='/Profile' component={Profile} />
-                <Route exact path='/AdminHome' component={AdminHome} />
+                <Route exact path='/SystemAdminDashboard' component={SystemAdminDashboard} />
+                <Route exact path='/DepartmentAdmin' component={DepartmentAdmin} />
+                <Route exact path='/DepartmentAdminDashboard' component={DepartmentAdminDashboard} />
+
+
           </Switch>
       </div>
     </Router>
