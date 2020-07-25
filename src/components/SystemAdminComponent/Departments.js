@@ -15,11 +15,11 @@ function createData(id, date, name, shipTo, paymentMethod, amount) {
 }
 
 const rows = [
-  createData(0, '16 Mar, 2019', 'Elvis Presley', 'Yes'),
-  createData(1, '16 Mar, 2019', 'Paul McCartney', 'No'),
-  createData(2, '16 Mar, 2019', 'Tom Scholz', 'No'),
-  createData(3, '16 Mar, 2019', 'Michael Jackson', 'No'),
-  createData(4, '15 Mar, 2019', 'Bruce Springsteen', 'No'),
+  createData(0, '1', 'Department of Computer Science and Cybersecurity (CSC)'),
+  createData(1, '2', 'Department of Mathematics & Statistics'),
+  // createData(2, '16 Mar, 2019', 'Tom Scholz', 'No'),
+  // createData(3, '16 Mar, 2019', 'Michael Jackson', 'No'),
+  // createData(4, '15 Mar, 2019', 'Bruce Springsteen', 'No'),
 ];
 
 function preventDefault(event) {

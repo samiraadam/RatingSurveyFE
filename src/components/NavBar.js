@@ -91,15 +91,15 @@ export default function NavBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem 
+      {/* <MenuItem 
       onClick={handleMenuClose}
       href="Profile"
       >
       <Button
       href="Profile"
       >Profile</Button>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      </MenuItem> */}
+      {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
       <MenuItem 
       onClick={handleMenuClose}
       // href="Login"
@@ -127,6 +127,7 @@ export default function NavBar() {
 
           <IconButton
           // className={classes.menuButton}
+          href="Login"
           >
             <StarBorderIcon
             style={{ fontSize: "40px" , color: "white", margin: "0"}}

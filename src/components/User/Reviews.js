@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component , useState} from 'react';
 import Panel from 'react-bootstrap/lib/Panel'
 import axios from 'axios'
 import Avatar from '@material-ui/core/Avatar';
@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import PersonIcon from '@material-ui/icons/Person';
 import Divider from '@material-ui/core/Divider';
+// import Button from '@material-ui/core/Button';
 // import { makeStyles } from '@material-ui/core/styles';
 // import Container from '@material-ui/core/Container';
 // import { Link } from 'react-router-dom';
@@ -39,7 +40,12 @@ import Divider from '@material-ui/core/Divider';
 // }));
 
 //This Component is a child Component of Customers Component
+
 export default class CustomerDetails extends Component {
+//   const [review, setReview] = useState("");
+// function validateForm() {
+//   return review.length > 0;
+// }
 
   constructor(props) {
     super(props);
@@ -98,6 +104,33 @@ export default class CustomerDetails extends Component {
           <Typography variant="h4" component="h2">
              {this.state.customerDetails.data.review}
              </Typography>
+          <Divider style={{margin: "40px"}}/>
+          <Typography> Wanna add a review?</Typography>
+          <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Review"
+              name="email"
+              autoComplete="email"
+              // value={review}
+              // // onChange={e => setReview(e.target.value)}
+              autoFocus
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              // className={classes.submit}
+              href="Home"
+              // disabled={!validateForm()}
+            >
+              Submit Review
+            </Button>
+
           {/* <h4>Classess Avaliable for Feedback Under {this.state.customerDetails.data.name}</h4> */}
           {/* <a href= "Login">{this.state.customerDetails.data.class}</a> */}
           {/* <p>Phone : {this.state.customerDetails.data.phone}</p>

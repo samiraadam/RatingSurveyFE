@@ -20,7 +20,7 @@ function SystemAdminHome() {
       <Typography variant="body2" color="textPrimary" align="center">
         <Link 
         color="inherit" 
-        href="SystemAdminHome"
+        href="SystemAdminDashboard"
         underline ="hover"
         >
           Back to system Admin Dashborad

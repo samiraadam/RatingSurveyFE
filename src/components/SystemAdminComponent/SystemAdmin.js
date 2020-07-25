@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from "react";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,16 +13,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-// function Copyright() {
-//   return (
-//     <Typography variant="body2" color="textSecondary" align="center">
-//       {'Copyright © '}
-//       <Link color="inherit" href="https://material-ui.com/">
-//         Your Website
-//       </Link>{''}
-//     </Typography>
-//   );
-// }
 function DepartmentAdmin() {
     return (
       <Typography variant="body2" color="textPrimary" align="center">
@@ -84,7 +74,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInSide() {
   const classes = useStyles();
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  function validateForm() {
+    return email.length > 0 && password.length > 0;
+  }
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -107,6 +101,8 @@ export default function SignInSide() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
               autoFocus
             />
             <TextField
@@ -118,6 +114,8 @@ export default function SignInSide() {
               label="Password"
               type="password"
               id="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
               autoComplete="current-password"
             />
             <FormControlLabel
@@ -131,6 +129,7 @@ export default function SignInSide() {
               color="primary"
               className={classes.submit}
               href="SystemAdminDashboard"
+              disabled={!validateForm()}
             >
               Sign In
             </Button>

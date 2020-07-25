@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from "react";
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 // import Typography from '@material-ui/core/Typography';
@@ -27,6 +27,21 @@ const useStyles = makeStyles({
 
 export default function Deposits() {
   const classes = useStyles();
+  const [name, setName] = useState("");
+  const [service, setService] = useState("");
+  function validateForm() {
+    return name.length > 0 && service.length > 0;
+  }
+
+  function confirm() {
+    if (name.length == 0 && service.length == 0){
+      return name.length > 0 && service.length > 0;
+
+    }
+    else {
+    alert('Your service has been created');
+    }
+  }
   return (
     // <React.Fragment>
     <div>
@@ -41,6 +56,8 @@ export default function Deposits() {
                 label="Service Name"
                 name="serviceName"
                 autoComplete="serviceName"
+                value={name}
+                onChange={e => setName(e.target.value)}
               />
             </Grid>
             <br></br>
@@ -53,6 +70,8 @@ export default function Deposits() {
                 label="Service Description"
                 name="servieDescription"
                 autoComplete="sDescription"
+                value={service}
+                onChange={e => setService(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -68,7 +87,8 @@ export default function Deposits() {
             color="primary"
             className={classes.submit}
             // style={{margin: "2px"}}
-            href="Confirmation"
+            onClick ={confirm}
+            disabled={!validateForm()}
           >
             Create Service
           </Button>

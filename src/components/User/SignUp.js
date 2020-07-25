@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from "react";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -35,6 +35,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+
+  function validateForm() {
+    return email.length > 0 && password.length > 0;
+  }
+
+  function submitForm(event) {
+    alert("Account Created Successfully")
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -57,6 +68,8 @@ export default function SignUp() {
                 fullWidth
                 id="userName"
                 label="User Name"
+                value={username}
+                onChange={e => setUsername(e.target.value)}
                 autoFocus
               />
             </Grid>
@@ -68,6 +81,8 @@ export default function SignUp() {
                 id="email"
                 label="Email Address"
                 name="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
                 autoComplete="email"
               />
             </Grid>
@@ -80,6 +95,8 @@ export default function SignUp() {
                 label="Password"
                 type="password"
                 id="password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
                 autoComplete="current-password"
               />
             </Grid>
@@ -96,7 +113,9 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={submitForm}
             href="SignupConfirmation"
+            disabled={!validateForm()}
           >
             Sign Up
           </Button>

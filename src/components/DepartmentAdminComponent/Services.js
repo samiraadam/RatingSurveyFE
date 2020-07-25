@@ -15,11 +15,12 @@ function createData(id, date, name, shipTo, paymentMethod, amount) {
 }
 
 const rows = [
-  createData(0, '16 Mar, 2019', 'Elvis Presley', 'Yes'),
-  createData(1, '16 Mar, 2019', 'Paul McCartney', 'No'),
-  createData(2, '16 Mar, 2019', 'Tom Scholz', 'No'),
-  createData(3, '16 Mar, 2019', 'Michael Jackson', 'No'),
-  createData(4, '15 Mar, 2019', 'Bruce Springsteen', 'No'),
+  createData(0, '1', 'Bookstore', 'Where Students are able to get textbooks and supplies'),
+  createData(1, '2', 'Cafe', 'Place to grab food and drinks'),
+  createData(2, '3', 'Gateway', 'Able to get assitance with financial aid'),
+  createData(3, '4', 'Admissions', 'The Admissions Office helps with new and transferring students'),
+  createData(4, '5', 'Libarary', 'Where students can access research materials'),
+  // createData(4, '5', 'Bruce Springsteen', 'No'),
 ];
 
 function preventDefault(event) {
@@ -57,7 +58,7 @@ export default function Orders() {
       </Table>
       <div className={classes.seeMore}>
         <Link color="primary" href="#" onClick={preventDefault}>
-          See more Users
+          See more Services Avaliable
         </Link>
       </div>
     </React.Fragment>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from "react";
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 // import Typography from '@material-ui/core/Typography';
@@ -22,6 +22,53 @@ const useStyles = makeStyles({
 
 export default function Deposits() {
   const classes = useStyles();
+  const [addDept, setaddDept] = useState("");
+  const [deleteDept, setdeleteDept] = useState("");
+  const [renameDept, setrenameDept] = useState("");
+
+  // function validateForm() {
+  //   return addDept.length > 0 || deleteDept.length > 0 || renameDept.length > 0;
+  // }
+  // // function validateAddForm() {
+  // //   return addDept.length > 0;
+  // // }
+  // // function validateDeleteForm() {
+  // //   return deleteDept.length > 0;
+  // // }
+  // // function validateRenameForm() {
+  // //   return renameDept.length > 0;
+  // // }
+
+  // function validateaddDept() {
+  //   return alert('The Department has been added.');
+  //   // if (addDept.length == 0 ){
+  //   //   return addDept.length > 0;
+  
+  //   // }
+  //   // else {
+  //   // alert('The Department has been added.');
+  //   // }
+  // }
+  // function validatedeleteDept() {
+  //   return alert('The Department has been deleted.');
+  //   // if (deleteDept.length == 0 ){
+  //   //   return deleteDept.length > 0;
+  
+  //   // }
+  //   // else {
+  //   // alert('The Department has been deleted.');
+  //   // }
+  // }
+  // function validatedrenameDept() {
+  //   return alert('The Department has been renamed.');
+  //   // if (renameDept.length == 0 ){
+  //   //   return renameDept.length > 0;
+  
+  //   // }
+  //   // else {
+  //   // alert('The Department has been renamed.');
+  //   // }
+  // }
   return (
     // <React.Fragment>
     <div>
@@ -37,6 +84,8 @@ export default function Deposits() {
                 id="departmentName"
                 label="Department Name"
                 name="departmentName"
+                value={addDept}
+                onChange={e => setaddDept(e.target.value)}
                 autoComplete="lname"
               />
             </Grid>  
@@ -49,7 +98,9 @@ export default function Deposits() {
             color="primary"
             className={classes.submit}
             // style={{margin: "2px"}}
-            href="Confirmation"
+            // href="Confirmation"
+            // onClick={validateaddDept()}
+            // disabled={!validateForm()}
           >
             Add Department
           </Button>
@@ -70,6 +121,8 @@ export default function Deposits() {
                 id="departmentID"
                 label="Department ID"
                 name="departmentID"
+                value={deleteDept}
+                onChange={e => setdeleteDept(e.target.value)}
                 autoComplete="lname"
               />
             </Grid>  
@@ -82,7 +135,9 @@ export default function Deposits() {
             color="primary"
             className={classes.submit}
             // style={{margin: "2px"}}
-            href="Confirmation"
+            // href="Confirmation"
+            // onClick={alert('The Department has been deleted.')}
+            // disabled={!validateForm()}
           >
             Delete Department
           </Button>
@@ -101,6 +156,8 @@ export default function Deposits() {
                 id="departmentID"
                 label="Department ID"
                 name="departmentID"
+                value={renameDept}
+                onChange={e => setrenameDept(e.target.value)}
                 autoComplete="lname"
               />
           </Grid>
@@ -126,7 +183,9 @@ export default function Deposits() {
             color="primary"
             className={classes.submit}
             // style={{margin: "2px"}}
-            href="Confirmation"
+            // href="Confirmation"
+            // onClick={validatedrenameDept()}
+            // disabled={!validateForm()}
           >
             Rename Department
           </Button>

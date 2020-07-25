@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useEffect } from "react";
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -15,12 +14,14 @@ function createData(id, date, name, shipTo, paymentMethod, amount) {
 }
 
 const rows = [
-  createData(0, '16 Mar, 2019', 'Elvis Presley', 'Yes'),
-  createData(1, '16 Mar, 2019', 'Paul McCartney', 'No'),
-  createData(2, '16 Mar, 2019', 'Tom Scholz', 'No'),
-  createData(3, '16 Mar, 2019', 'Michael Jackson', 'No'),
-  createData(4, '15 Mar, 2019', 'Bruce Springsteen', 'No'),
+  createData(0, '1', 'Seyi', 'oluwaseyi.ola@my.metrostate.edu'),
+  createData(1, '2', 'Department1_Admin', 'depart1Admin@gmail.com'),
+  createData(2, '3', 'student', 'student@gmail.com'),
+  createData(3, '4', 'samira', 'samira@gmail.com'),
+  createData(4, '5', 'Bossman', 'Bossman@yahoo.com'),
 ];
+
+
 
 function preventDefault(event) {
   event.preventDefault();
@@ -34,15 +35,38 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Orders() {
   const classes = useStyles();
+  // const data = useState
+//   const token ='eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNTk1Njk3NTM5LCJleHAiOjE1OTYzMDIzMzl9.as3RN7gA4Vm-3ygmWhfgp-r_xHtlwMQoFyuatMWLRQgyv7zIXhhr_fvTBiTTs-oOAp9RVekWCJtxWWNXqFZN5Q';
+//   useEffect(() => {
+//   // GET request using fetch inside useEffect React hook
+//   fetch('localhost:8080/api/systemadmin/users' + token)
+//   .then(function (response) {
+//     if (response.status === 200 && response != null) {
+//       var data = response.data;
+//       console.log(data)
+//       return data
+//     } else {
+//       console.log('problem');
+//     }
+//   })
+//   .catch(function (error) {
+//     console.log(error);
+//   });
+//       // .then(response => response.json())
+//       // .then(data => this.setState({ totalReactPackages: data.total }));
+
+// // empty dependency array means this effect will only run once (like componentDidMount in classes)
+// }, []); 
   return (
     <React.Fragment>
       <Title>Users</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Admin?</TableCell>
+            <TableCell>UserID</TableCell>
+            <TableCell>Username</TableCell>
+            <TableCell>Email</TableCell>
+            {/* <TableCell>Admin?</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>

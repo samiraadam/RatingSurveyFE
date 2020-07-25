@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from "react";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -76,6 +76,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInSide() {
   const classes = useStyles();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  function validateForm() {
+    return email.length > 0 && password.length > 0;
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -99,6 +104,8 @@ export default function SignInSide() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
               autoFocus
             />
             <TextField
@@ -110,6 +117,8 @@ export default function SignInSide() {
               label="Password"
               type="password"
               id="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
               autoComplete="current-password"
             />
             <FormControlLabel
@@ -122,6 +131,7 @@ export default function SignInSide() {
               variant="contained"
               color="primary"
               className={classes.submit}
+              disabled={!validateForm()}
               href="DepartmentAdminDashboard"
             >
               Sign In

@@ -12,6 +12,9 @@ import DepartmentAdmin from './components/DepartmentAdminComponent/DepartmentAdm
 import SystemAdminDashboard from './components/SystemAdminComponent/SystemAdminDashboard';
 import DepartmentAdminDashboard from './components/DepartmentAdminComponent/DepartmentAdminDashboard';
 import SignupConfirmation from './components/Navigation/SignupConfirmation'
+
+// import PrivateRoute from './components/Utils/PrivateRoute';
+// import PublicRoute from './components/Utils/PublicRoute';
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
 
@@ -42,6 +45,16 @@ class App extends Component {
                 <Route exact path='/DepartmentAdmin' component={DepartmentAdmin} />
                 <Route exact path='/DepartmentAdminDashboard' component={DepartmentAdminDashboard} />
 
+                {/* <PublicRoute exact path='/Login' component={Login} />
+                <PublicRoute path='/SignUp' component={SignUp} />
+                <PublicRoute path='/SystemAdmin' component={SystemAdmin} />
+                <PublicRoute path='/DepartmentAdmin' component={DepartmentAdmin} />
+                <PrivateRoute  path='/Confirmation' component={Confirmation} />
+                <PrivateRoute  path='/SignupConfirmation' component={SignupConfirmation} />
+                <PrivateRoute  path='/Home' component={Department} />
+                <PrivateRoute  path='/Profile' component={Profile} />
+                <PrivateRoute  path='/SystemAdminDashboard' component={SystemAdminDashboard} />
+                <PrivateRoute  path='/DepartmentAdminDashboard' component={DepartmentAdminDashboard} /> */}
 
           </Switch>
       </div>
