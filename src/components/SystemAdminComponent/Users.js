@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -7,6 +8,20 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
+
+const UNORATER_API_URL = 'http://localhost:8080/api'
+const SYS_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk3Mjc3NjAxLCJleHAiOjE1OTc4ODI0MDF9.Wj6i2B-tidZXwsIIPs8ZCP6bDGOqYHKnR5AhbhzhT6e6Qrgu66WdbTUV7PMaBDEdmep5BY3dCVgLRf2dR6rifA'
+
+
+function preventDefault(event) {
+  event.preventDefault();
+}
+
+const useStyles = makeStyles((theme) => ({
+  seeMore: {
+    marginTop: theme.spacing(3),
+  },
+}));
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -22,41 +37,35 @@ const rows = [
 ];
 
 
+export default function Users() {
 
-function preventDefault(event) {
-  event.preventDefault();
-}
-
-const useStyles = makeStyles((theme) => ({
-  seeMore: {
-    marginTop: theme.spacing(3),
-  },
-}));
-
-export default function Orders() {
   const classes = useStyles();
-  // const data = useState
-//   const token ='eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNTk1Njk3NTM5LCJleHAiOjE1OTYzMDIzMzl9.as3RN7gA4Vm-3ygmWhfgp-r_xHtlwMQoFyuatMWLRQgyv7zIXhhr_fvTBiTTs-oOAp9RVekWCJtxWWNXqFZN5Q';
-//   useEffect(() => {
-//   // GET request using fetch inside useEffect React hook
-//   fetch('localhost:8080/api/systemadmin/users' + token)
-//   .then(function (response) {
-//     if (response.status === 200 && response != null) {
-//       var data = response.data;
-//       console.log(data)
-//       return data
-//     } else {
-//       console.log('problem');
-//     }
-//   })
-//   .catch(function (error) {
-//     console.log(error);
-//   });
-//       // .then(response => response.json())
-//       // .then(data => this.setState({ totalReactPackages: data.total }));
 
-// // empty dependency array means this effect will only run once (like componentDidMount in classes)
-// }, []); 
+  const [userData, setData] = useState({users: [], isFetching: false});
+
+  const UNORATER_API_URL = 'http://localhost:8080/api'
+  const SYS_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk3Mjc3NjAxLCJleHAiOjE1OTc4ODI0MDF9.Wj6i2B-tidZXwsIIPs8ZCP6bDGOqYHKnR5AhbhzhT6e6Qrgu66WdbTUV7PMaBDEdmep5BY3dCVgLRf2dR6rifA'
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+        try {
+            setData({users: userData.users, isFetching: true});
+            const response = await axios.get(`${UNORATER_API_URL}/systemadmin/users`, {
+              headers: {
+                'Authorization': `Bearer ${SYS_ADMIN_TOKEN}` 
+              }});
+            setData({users: response.data, isFetching: false});
+        } catch (e) {
+            console.log(e);
+            setData({users: userData.users, isFetching: false});
+        }
+    };
+    fetchUsers();
+  }, []);
+
+  if (userData.isFetching) return(<h1>LOADING...</h1>);
+
+
   return (
     <React.Fragment>
       <Title>Users</Title>
@@ -70,12 +79,12 @@ export default function Orders() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.shipTo}</TableCell>
-            </TableRow>
+        {userData.users.map((row) => (
+            <TableRow key={row.userID}>
+            <TableCell>{row.userID}</TableCell>
+            <TableCell>{row.userName}</TableCell>
+            <TableCell>{row.email}</TableCell>
+          </TableRow>
           ))}
         </TableBody>
       </Table>

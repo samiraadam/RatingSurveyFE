@@ -1,5 +1,6 @@
 
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -8,19 +9,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
-
-// Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
-}
-
-const rows = [
-  createData(0, '1', 'Department of Computer Science and Cybersecurity (CSC)'),
-  createData(1, '2', 'Department of Mathematics & Statistics'),
-  // createData(2, '16 Mar, 2019', 'Tom Scholz', 'No'),
-  // createData(3, '16 Mar, 2019', 'Michael Jackson', 'No'),
-  // createData(4, '15 Mar, 2019', 'Bruce Springsteen', 'No'),
-];
 
 function preventDefault(event) {
   event.preventDefault();
@@ -32,8 +20,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Orders() {
+export default function Departments() {
   const classes = useStyles();
+
+
+  const [departmentData, setData] = useState({departments: [], isFetching: false});
+
+  const UNORATER_API_URL = 'http://localhost:8080/api'
+  const SYS_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk3Mjc3NjAxLCJleHAiOjE1OTc4ODI0MDF9.Wj6i2B-tidZXwsIIPs8ZCP6bDGOqYHKnR5AhbhzhT6e6Qrgu66WdbTUV7PMaBDEdmep5BY3dCVgLRf2dR6rifA'
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+        try {
+            setData({departments: departmentData.departments, isFetching: true});
+            const response = await axios.get(`${UNORATER_API_URL}/systemadmin/departments`, {
+              headers: {
+                'Authorization': `Bearer ${SYS_ADMIN_TOKEN}` 
+              }});
+            setData({departments: response.data, isFetching: false});
+        } catch (e) {
+            console.log(e);
+            setData({departments: departmentData.departments, isFetching: false});
+        }
+    };
+    fetchUsers();
+  }, []);
+
+  if (departmentData.isFetching) return(<h1>LOADING...</h1>);
+
   return (
     <React.Fragment>
       <Title>Departments</Title>
@@ -45,10 +59,10 @@ export default function Orders() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.name}</TableCell>
+          {departmentData.departments.map((row) => (
+            <TableRow key={row.departmentID}>
+              <TableCell>{row.departmentID}</TableCell>
+              <TableCell>{row.departmentName}</TableCell>
             </TableRow>
           ))}
         </TableBody>
