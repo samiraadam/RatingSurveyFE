@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
+import axios from 'axios';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -39,6 +40,16 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
 
+  // const updateField = e => {
+
+  //   setFormData({
+
+  //     ...formData,
+
+  //     [e.target.name]: e.target.value,
+
+  //   })
+
   function validateForm() {
     return email.length > 0 && password.length > 0;
   }
@@ -46,6 +57,23 @@ export default function SignUp() {
   function submitForm(event) {
     alert("Account Created Successfully")
   }
+
+  useEffect(() =>{
+  axios.post('localhost:8080/api/auth/signin', {
+    userName: "testing",
+    email: "testing@gmail.com",
+    password: "testing",
+  })
+  .then((response) => {
+    console.log(response);
+    alert("Account Created Successfully  " + response)
+  }, (error) => {
+    console.log(error);
+  });
+
+})
+
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -131,3 +159,4 @@ export default function SignUp() {
     </Container>
   );
 }
+// }
