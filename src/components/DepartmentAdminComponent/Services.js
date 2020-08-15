@@ -27,7 +27,11 @@ export default function Services() {
   const [servicesData, setData] = useState({services: [], isFetching: false});
 
   const UNORATER_API_URL = 'http://localhost:8080/api/departmentadmin/services'
-  const SYS_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNTk3NDU5ODI4LCJleHAiOjE1OTgwNjQ2Mjh9.eKubtUKcENUqheNUjGaunBxfUOZfvrBO-eKpHPIC_dNSEHc5nA1P3Ko_bnZ5pnD5qiQ94JYK7l6dB7Htqt4ZrQ'
+  
+  const DEPT_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNTk3NDQyMTAxLCJleHAiOjE1OTgwNDY5MDF9.2svz_aOCiIQDDggZW4xwV4qk87g-05eSkq1pSfDcO88bMIl7G1Ca_2TJ9dDMA6BMH3N-wHUjHSZ96FoJ-vPJDg'
+
+  const SYS_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk3MzA1MTIzLCJleHAiOjE1OTc5MDk5MjN9.kkOBRpztFWP6vnqvn45U7ZsyQ3E2QnljMgVCrsszVUR01QyiGjfUavgPaKc5ZJVYTPdb0Z1GY81RB5t9H68FBA'
+
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -35,7 +39,7 @@ export default function Services() {
             setData({services: servicesData.services, isFetching: true});
             const response = await axios.get(`${UNORATER_API_URL}`, {
               headers: {
-                'Authorization': `Bearer ${SYS_ADMIN_TOKEN}` 
+                'Authorization': `Bearer ${DEPT_ADMIN_TOKEN}` 
               }});
             setData({services: response.data, isFetching: false});
         } catch (e) {

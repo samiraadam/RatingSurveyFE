@@ -19,55 +19,42 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 const useStyles = makeStyles({
-
   table: {
-border: "1px white solid",
-marginLeft:"10em",
-padding:"1em",
-
-
-
+  border: "1px white solid",
+  marginLeft:"10em",
+  padding:"1em",
   },
 })
 
-
-const submitReview= () => {
-  console.log('text and score',reviewText, score)
-  let search = window.location.search;
-  let params1 = new URLSearchParams(search);
-  let reviewText = params1.get('Great Class');
-  let score = params1.get('4.5')
-  let serviceID = params1.get(1)
-
-
-
+function submitReview(e, serviceID, reviewText, score) {
+  e.preventDefault();
+ 
   const UNORATER_API_URL = 'http://localhost:8080/api/user/me/postreview';
-  const SYS_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNTk3NDU5ODI4LCJleHAiOjE1OTgwNjQ2Mjh9.eKubtUKcENUqheNUjGaunBxfUOZfvrBO-eKpHPIC_dNSEHc5nA1P3Ko_bnZ5pnD5qiQ94JYK7l6dB7Htqt4ZrQ'
-  
-  if (reviewText != null && score != null) {
+  const SYS_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk3MzA1MTIzLCJleHAiOjE1OTc5MDk5MjN9.kkOBRpztFWP6vnqvn45U7ZsyQ3E2QnljMgVCrsszVUR01QyiGjfUavgPaKc5ZJVYTPdb0Z1GY81RB5t9H68FBA'
+ 
+  if (reviewText != null && score != null && serviceID != null) {
 
-    useEffect(() => {
-      axios.get(`${UNORATER_API_URL}` + '/' +`${serviceID}` + `${reviewText}` + '/' + `${score}`, {
-        headers: {
+    const url = `${UNORATER_API_URL}` + '/' +`${serviceID}` + '/' + `${reviewText}` + '/' + `${score}`;
+    // Create our request constructor with all the parameters we need
+    var request = new Request(url, {
+        method: 'GET',
+        headers: new Headers({
           'Authorization': `Bearer ${SYS_ADMIN_TOKEN}` 
-        }})
-          .then(res => {
-              if (res.status === 200) {
-                alert(res.data.message)
-                window.location.reload(false)
-                alert("Call passed")       
-              }
-          })
-          .catch(err => {
-              if (serviceID != null) {
-                alert("Something went wrong: " + err.message)
-              }
-  
-          })
-          
-    }, []);
+        }),  
+    });
 
-  }
+    fetch(request)
+    .then(res => {
+      // Handle response we get from the API
+      if (res.status === 200) {
+        alert("Review posted") 
+        window.location.reload(false)      
+      }
+    })
+    .catch(err => {
+      alert("Something went wrong: " + err.message)
+    })
+  }  
 }
 
 export const Reviews = props => {
@@ -80,27 +67,24 @@ export const Reviews = props => {
     reviews: props.data.reviews,
     aggregateScore: props.data.aggregateScore,
   })
-console.log(deptData)
-console.log('reviewText' , deptData.reviews)
-const [dense, setDense] = React.useState(false);
-const [reviewText, setReviewText] = useState("");
-const [score, setScore] = useState("");
-function generate(element) {
-  return [0, 1, 2].map((value) =>
-    React.cloneElement(element, {
-      key: value,
-    }),
-  );
-}
-
-// if (deptData.isFetching) return(<h1>LOADING...</h1>);
-
+  console.log(deptData)
+  console.log('reviewText' , deptData.reviews)
+  const [dense, setDense] = React.useState(false);
+  const [reviewText, setReviewText] = useState("");
+  const [score, setScore] = useState("");
+  function generate(element) {
+    return [0, 1, 2].map((value) =>
+      React.cloneElement(element, {
+        key: value,
+      }),
+    );
+  }
 
   return (
 <div>
       <Panel bsStyle="info" className="centeralign">
         <Panel.Heading>
-  <Panel.Title componentClass="h3">Reviews for {deptData.serviceName}</Panel.Title>
+  <Panel.Title componentClass="h3">Reviews for {deptData.serviceName} ({deptData.serviceID})</Panel.Title>
         </Panel.Heading>
         <Panel.Body>
         <Grid
@@ -163,9 +147,7 @@ function generate(element) {
               fullWidth
               variant="contained"
               color="primary"
-              // className={classes.submit}
-              href="Home"
-              onClick={submitReview()}
+              onClick={(e) => submitReview(e, deptData.serviceID, reviewText, score)}
             >
               Submit Review
             </Button>
