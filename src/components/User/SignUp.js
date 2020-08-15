@@ -8,7 +8,6 @@ import TextField from '@material-ui/core/TextField';
 // import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -40,15 +39,6 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
 
-  // const updateField = e => {
-
-  //   setFormData({
-
-  //     ...formData,
-
-  //     [e.target.name]: e.target.value,
-
-  //   })
 
   function validateForm() {
     return email.length > 0 && password.length > 0;
@@ -129,10 +119,6 @@ export default function SignUp() {
               />
             </Grid>
             <Grid item xs={12}>
-              {/* <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              /> */}
             </Grid>
           </Grid>
           <Button

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Panel from 'react-bootstrap/lib/Panel'
 import axios from 'axios'
-import Reviews from './Reviews'
+// import Reviews from './Reviews'
 
 //This Component is a child Component of Customers Component
 export default class CustomerDetails extends Component {
@@ -61,7 +61,8 @@ export default class CustomerDetails extends Component {
         </Panel.Body>
       </Panel>
 
-      <Reviews val={this.state.selectedClass}/>
+      {/* <Reviews val={this.state.selectedClass}/> */}
     </div>)
   }
 }
+// export default DepartmentDetails

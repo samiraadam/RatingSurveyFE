@@ -1,52 +1,110 @@
-import React, {Component} from 'react';
-// import { makeStyles } from '@material-ui/core/styles';
-import DepartmentDetails from './DepartmentDetails'
+import React, {useEffect, useState } from "react";
+import { makeStyles } from '@material-ui/core/styles';
+import Reviews from './Reviews'
 import axios from 'axios'
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import { Typography } from '@material-ui/core';
-// import Autocomplete from '@material-ui/lab/Autocomplete';
-// import TextField from '@material-ui/core/TextField';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button'
+import CloseIcon from '@material-ui/icons/Close'
 
-// const useStyles = makeStyles((theme) => ({
-//   formControl: {
-//     margin: theme.spacing(1),
-//     minWidth: 120,
-//   },
-//   selectEmpty: {
-//     marginTop: theme.spacing(2),
-//   },
-// }));
+const useStyles = makeStyles({
+  depositContext: {
+    flex: 1,
+  },
+  tableheadstyle: {
 
-export default class Customers extends Component {
+    border: '1px black solid',
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      selectedDepartment: []
-    }
+    backgroundColor: 'white',
+
+    color: 'black',
+
+  },
+
+  tablerowstyle: {
+
+    // backgroundColor: '#ccc',
+    border: '1px black solid',
+
+    backgroundColor: 'white',
+
+    color: 'black',
+
+    // border: '1px black solid',
+
+  },
+
+  headstyle: {
+
+    textAlign: 'left',
+
+  },
+
+  content: {
+
+    margin: '6em 0em 1em 20em',
+
+    paddingTop: '1em',
+
+  },
+
+  buttonstyle: {
+
+    backgroundColor: 'gray',
+
+    color: 'white',
+
+    float: 'right',
+
+  },
+});
+
+export const Department = props => {
+  const classes = useStyles();
+  const [selectedDept, setSelectedDept] = useState("");
+  const [showReviews, setShowReviews] = useState(false)
+  const [deptData, setDeptData] = useState("")
+
+const [departmentData, setData] = useState({departments: [], isFetching: false, isCount: 0});
+// const [selectedDepartment, setSelectedDepartment] = useState({selectedDepartment: []});
+  const UNORATER_API_URL = 'http://localhost:8080/api'
+  const SYS_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNTk3NDU5ODI4LCJleHAiOjE1OTgwNjQ2Mjh9.eKubtUKcENUqheNUjGaunBxfUOZfvrBO-eKpHPIC_dNSEHc5nA1P3Ko_bnZ5pnD5qiQ94JYK7l6dB7Htqt4ZrQ'
+
+  const selectedDepartment = (row) => {
+    setDeptData(row)
+    // setShowReviews(true)
+    setShowReviews(!showReviews)
+    console.log(row)
+    departmentData.isCount = departmentData.isCount + 1
+    if (departmentData.isCount < 1) return(window.location.reload(true));
   }
+  useEffect(() => {
+    const fetchUsers = async () => {
+        try {
+            setData({departments: departmentData.departments, isFetching: true});
+            const response = await axios.get(`${UNORATER_API_URL}/user/viewallservices`, {
+              headers: {
+                'Authorization': `Bearer ${SYS_ADMIN_TOKEN}` 
+              }});
+            setData({departments: response.data, isFetching: false});
+        } catch (e) {
+            console.log(e);
+            setData({departments: departmentData.departments, isFetching: false});
+        }
+    };
+    fetchUsers();
+  }, []);
 
-  //function which is called the first time the component loads
-  componentDidMount() {
-    this.getDepartmentData();
-  }
+  if (departmentData.isFetching) return(<h1>LOADING...</h1>);
 
-  //Function to get the Customer Data from json
-  getDepartmentData() {
-    axios.get('assets/samplejson/Departments.json').then(response => {
-      this.setState({departmentList: response})
-    })
-  };
+  return (
 
-  render() {
-    if (!this.state.departmentList)
-      return (<p></p>)
-    return (<div className="addmargin">
-      {/* <div className="col-md-3"> */}
+    <div>
       <Grid
   container
   direction="column"
@@ -57,50 +115,66 @@ export default class Customers extends Component {
 <Typography 
 variant="h4"
 style={{margin: "10px" }}
->Select A Department to Review</Typography>
-    <FormControl>
-    {/* <InputLabel id="demo-simple-select-helper-label">Choose A Department</InputLabel> */}
-      <Select
-      variant='outlined'
-      // autoWidth ='true'
-      style={{ width: 500, margin: "40px" }}
-      >
-        {
-          this.state.departmentList.data.map(department => 
-          // <MenuItem bsStyle="info" key={department.name} className="centeralign">
-              <MenuItem 
-              value = {department.name}
-              onClick={() => this.setState({selectedDepartment: department.id})}>
+>Select A Service to Review</Typography>
 
-              {department.name}
 
-              </MenuItem>
-          )
-        }
-        </Select>
-        </FormControl>
-        {/* <Autocomplete
-      id="combo-box-demo"
-      options={this.state.departmentList.data}
-      onClick={() => this.setState({selectedDepartment: department.id})}
-      getOptionLabel={(option) => option.id}
-      style={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Combo box" variant="outlined" />}
-    /> */}
-      {/* </div> */}
+<Table size="small">
+        <TableHead className={classes.tableheadstyle}>
+          <TableRow className={classes.tablerowstyle}>
+            <TableCell><Typography variant="h4" component="h4">Service ID </Typography> </TableCell>
+            <TableCell><Typography variant="h4" component="h4">Service Name </Typography></TableCell>
+            <TableCell> </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {departmentData.departments.map((row) => (
+            <TableRow className={classes.tablerowstyle} key={row.serviceID}>
+              <TableCell><Typography variant="h6" component="h6">{row.serviceID}</Typography></TableCell>
+              <TableCell><Typography variant="h6" component="h6">{row.serviceName}</Typography></TableCell>
+              <TableCell>
+<Button
+  variant="contained"
+  className={classes.buttonstyle}
+  onClick={()=> selectedDepartment(row)}
+>
+  {/* View Service */}
+{!showReviews ? <Typography>View Service</Typography> : <CloseIcon />}
+{/* View Service */}
+</Button>
+</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+
       </ Grid>
       {/* <div className="col-md-6"> */}
-      <Grid
-  container
-  direction="column"
-  justify="center"
-  alignItems="center"
-  className="addmargin"
+
+{showReviews && (
+
+<Grid
+container
+direction="column"
+justify="center"
+alignItems="center"
+className="addmargin"
 >
-        <DepartmentDetails val={this.state.selectedDepartment}/>
+
+  <Reviews
+
+    // appID={applicationData.uuid}
+
+    data={deptData}
+
+    // setActionUpdate={setActionUpdate}
+
+  />
       {/* </div> */}
       </ Grid>
-    </div>)
+)}
+    </div>
+    );
+
   }
 
-}
+export default Department

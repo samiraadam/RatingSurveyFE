@@ -1,4 +1,4 @@
-import React, {Component , useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Panel from 'react-bootstrap/lib/Panel'
 import axios from 'axios'
 import Avatar from '@material-ui/core/Avatar';
@@ -9,77 +9,98 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import PersonIcon from '@material-ui/icons/Person';
 import Divider from '@material-ui/core/Divider';
-// import Button from '@material-ui/core/Button';
-// import { makeStyles } from '@material-ui/core/styles';
-// import Container from '@material-ui/core/Container';
-// import { Link } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles'
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
-// const useStyles = makeStyles((theme) => ({
-//   paper: {
-//     marginTop: theme.spacing(8),
-//     display: 'flex',
-//     flexDirection: 'column',
-//     alignItems: 'center',
-//   },
-//   avatar: {
-//     margin: theme.spacing(1),
-//     backgroundColor: theme.palette.secondary.main,
-//   },
-//   form: {
-//     width: '100%', // Fix IE 11 issue.
-//     marginTop: theme.spacing(1),
-//   },
-//   submit: {
-//     margin: theme.spacing(3, 0, 2),
-//   },
-// }));
+const useStyles = makeStyles({
 
-//This Component is a child Component of Customers Component
+  table: {
+border: "1px white solid",
+marginLeft:"10em",
+padding:"1em",
 
-export default class CustomerDetails extends Component {
-//   const [review, setReview] = useState("");
-// function validateForm() {
-//   return review.length > 0;
-// }
 
-  constructor(props) {
-    super(props);
-    this.state = {}
+
+  },
+})
+
+
+const submitReview= () => {
+  console.log('text and score',reviewText, score)
+  let search = window.location.search;
+  let params1 = new URLSearchParams(search);
+  let reviewText = params1.get('Great Class');
+  let score = params1.get('4.5')
+  let serviceID = params1.get(1)
+
+
+
+  const UNORATER_API_URL = 'http://localhost:8080/api/user/me/postreview';
+  const SYS_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNTk3NDU5ODI4LCJleHAiOjE1OTgwNjQ2Mjh9.eKubtUKcENUqheNUjGaunBxfUOZfvrBO-eKpHPIC_dNSEHc5nA1P3Ko_bnZ5pnD5qiQ94JYK7l6dB7Htqt4ZrQ'
+  
+  if (reviewText != null && score != null) {
+
+    useEffect(() => {
+      axios.get(`${UNORATER_API_URL}` + '/' +`${serviceID}` + `${reviewText}` + '/' + `${score}`, {
+        headers: {
+          'Authorization': `Bearer ${SYS_ADMIN_TOKEN}` 
+        }})
+          .then(res => {
+              if (res.status === 200) {
+                alert(res.data.message)
+                window.location.reload(false)
+                alert("Call passed")       
+              }
+          })
+          .catch(err => {
+              if (serviceID != null) {
+                alert("Something went wrong: " + err.message)
+              }
+  
+          })
+          
+    }, []);
+
   }
+}
 
-  //Function which is called when the component loads for the first time
-  componentDidMount() {
-    this.getCustomerDetails(this.props.val)
-  }
+export const Reviews = props => {
+  const classes = useStyles()
+  console.log('props', props)
+  const [deptData, setDeptData] = useState({
+    serviceID: props.data.serviceID,
+    serviceName: props.data.serviceName,
+    serviceDescription: props.data.serviceDescription,
+    reviews: props.data.reviews,
+    aggregateScore: props.data.aggregateScore,
+  })
+console.log(deptData)
+console.log('reviewText' , deptData.reviews)
+const [dense, setDense] = React.useState(false);
+const [reviewText, setReviewText] = useState("");
+const [score, setScore] = useState("");
+function generate(element) {
+  return [0, 1, 2].map((value) =>
+    React.cloneElement(element, {
+      key: value,
+    }),
+  );
+}
 
-  //Function which is called whenver the component is updated
-  componentDidUpdate(prevProps) {
+// if (deptData.isFetching) return(<h1>LOADING...</h1>);
 
-    //get Customer Details only if props has changed
-    if (this.props.val !== prevProps.val) {
-      this.getCustomerDetails(this.props.val)
-    }
-  }
 
-  //Function to Load the customerdetails data from json.
-  getCustomerDetails(id) {
-    axios.get('assets/samplejson/dept' + id + '.json').then(response => {
-      this.setState({customerDetails: response})
-    })
-  };
-
-  render() {
-    if (!this.state.customerDetails)
-      return (<p></p>)
-    return (<div className="customerdetails">
+  return (
+<div>
       <Panel bsStyle="info" className="centeralign">
         <Panel.Heading>
-          <Panel.Title componentClass="h3">Reviews for {this.state.customerDetails.data.class}</Panel.Title>
+  <Panel.Title componentClass="h3">Reviews for {deptData.serviceName}</Panel.Title>
         </Panel.Heading>
         <Panel.Body>
         <Grid
@@ -88,35 +109,53 @@ export default class CustomerDetails extends Component {
           justify="center"
           alignItems="center"
         > 
-
-        <Avatar 
-        style={{ size: 50, margin: "30px" }}
-        variant="h3" component="h2"
-        >
-          <PersonIcon />
-        </Avatar>
-
-        <Typography variant="h3" component="h2">
-             {this.state.customerDetails.data.score}
+        <Typography variant="h2" component="h2">
+             Review Score is {deptData.aggregateScore} / 5
              </Typography>
         </Grid>
           <Divider style={{margin: "40px"}}/>
-          <Typography variant="h4" component="h2">
-             {this.state.customerDetails.data.review}
+          <Typography variant="h5" component="h5">
+             {deptData.serviceDescription}
              </Typography>
+      <Divider style={{margin: "40px"}}/>
+
+      <List dense={dense}>
+      {deptData.reviews.map((row) => (
+                <ListItem>
+                  <PersonIcon />
+                  <ListItemText
+                    primary={"Review: " + row.reviewText}
+                    secondary={"Score: " + row.score + " / 5"}
+                  />
+                  
+                </ListItem>
+      ))}
+            </List>
           <Divider style={{margin: "40px"}}/>
           <Typography> Wanna add a review?</Typography>
+          <form>
           <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Review"
-              name="email"
-              autoComplete="email"
-              // value={review}
-              // // onChange={e => setReview(e.target.value)}
+              id="reviewText"
+              label="Review Text"
+              name="reviewText"
+              value={reviewText}
+              onChange={e => setReviewText(e.target.value)}
+              autoFocus
+            />
+          <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="score"
+              label="Score"
+              name="score"
+              value={score}
+              onChange={e => setScore(e.target.value)}
               autoFocus
             />
             <Button
@@ -126,76 +165,14 @@ export default class CustomerDetails extends Component {
               color="primary"
               // className={classes.submit}
               href="Home"
-              // disabled={!validateForm()}
+              onClick={submitReview()}
             >
               Submit Review
             </Button>
-
-          {/* <h4>Classess Avaliable for Feedback Under {this.state.customerDetails.data.name}</h4> */}
-          {/* <a href= "Login">{this.state.customerDetails.data.class}</a> */}
-          {/* <p>Phone : {this.state.customerDetails.data.phone}</p>
-          <p> : {this.state.customerDetails.data.city}</p>
-          <p>State : {this.state.customerDetails.data.state}</p>
-          <p>Country : {this.state.customerDetails.data.country}</p>
-          <p>Organization : {this.state.customerDetails.data.organization}</p>
-          <p>Job Profile : {this.state.customerDetails.data.jobProfile}</p>
-          <p>Additional Info : {this.state.customerDetails.data.additionalInfo}</p> */}
-
-        {/* <form 
-        // className={classes.form} noValidate
-        >
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            // className={classes.submit}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form> */}
-
-      {/* </div> */}
+            </form>
         </Panel.Body>
       </Panel>
-    </div>)
-  }
+    </div>
+    );
 }
+export default Reviews
