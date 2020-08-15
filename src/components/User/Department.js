@@ -71,13 +71,11 @@ export const Department = props => {
   const [deptData, setDeptData] = useState("")
 
 const [departmentData, setData] = useState({departments: [], isFetching: false, isCount: 0});
-// const [selectedDepartment, setSelectedDepartment] = useState({selectedDepartment: []});
   const UNORATER_API_URL = 'http://localhost:8080/api'
-  const SYS_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNTk3NDU5ODI4LCJleHAiOjE1OTgwNjQ2Mjh9.eKubtUKcENUqheNUjGaunBxfUOZfvrBO-eKpHPIC_dNSEHc5nA1P3Ko_bnZ5pnD5qiQ94JYK7l6dB7Htqt4ZrQ'
+  const SYS_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk3MzA1MTIzLCJleHAiOjE1OTc5MDk5MjN9.kkOBRpztFWP6vnqvn45U7ZsyQ3E2QnljMgVCrsszVUR01QyiGjfUavgPaKc5ZJVYTPdb0Z1GY81RB5t9H68FBA'
 
   const selectedDepartment = (row) => {
     setDeptData(row)
-    // setShowReviews(true)
     setShowReviews(!showReviews)
     console.log(row)
     departmentData.isCount = departmentData.isCount + 1
@@ -137,9 +135,7 @@ style={{margin: "10px" }}
   className={classes.buttonstyle}
   onClick={()=> selectedDepartment(row)}
 >
-  {/* View Service */}
 {!showReviews ? <Typography>View Service</Typography> : <CloseIcon />}
-{/* View Service */}
 </Button>
 </TableCell>
             </TableRow>
@@ -148,8 +144,6 @@ style={{margin: "10px" }}
       </Table>
 
       </ Grid>
-      {/* <div className="col-md-6"> */}
-
 {showReviews && (
 
 <Grid
@@ -162,14 +156,11 @@ className="addmargin"
 
   <Reviews
 
-    // appID={applicationData.uuid}
 
     data={deptData}
 
-    // setActionUpdate={setActionUpdate}
 
   />
-      {/* </div> */}
       </ Grid>
 )}
     </div>
