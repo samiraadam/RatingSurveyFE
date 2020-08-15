@@ -33,6 +33,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+function verifySignup(e, userName,email, password) {
+  e.preventDefault();
+ 
+  const UNORATER_API_URL = 'http://localhost:8080/api/auth/signup';
+ 
+  if (userName != null && password != null && email != null) {
+
+    const url = `${UNORATER_API_URL}` + '/' + `${userName}`+ '/' + `${email}` + '/' + `${password}`;
+    // Create our request constructor with all the parameters we need
+    var request = new Request(url, {
+        method: 'GET',  
+    });
+
+    fetch(request)
+    .then(res => {
+      // Handle response we get from the API
+      if (res.status === 201) {
+        alert("Success Returning to Login Page")
+        window.location.href="/Login"
+      }else{
+        alert("Error: Try another password or email");
+      }
+    })
+  }  
+
+  
+  
+}
+
 export default function SignUp() {
   const classes = useStyles();
   const [email, setEmail] = useState("");
@@ -41,29 +71,12 @@ export default function SignUp() {
 
 
   function validateForm() {
-    return email.length > 0 && password.length > 0;
+    return email.length > 0 && password.length > 0 && username.length > 0;
   }
 
   function submitForm(event) {
     alert("Account Created Successfully")
   }
-
-  useEffect(() =>{
-  axios.post('localhost:8080/api/auth/signin', {
-    userName: "testing",
-    email: "testing@gmail.com",
-    password: "testing",
-  })
-  .then((response) => {
-    console.log(response);
-    alert("Account Created Successfully  " + response)
-  }, (error) => {
-    console.log(error);
-  });
-
-})
-
-
 
   return (
     <Container component="main" maxWidth="xs">
@@ -127,8 +140,8 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={submitForm}
-            href="SignupConfirmation"
+            onClick={(e) => verifySignup(e,username, email, password)}
+
             disabled={!validateForm()}
           >
             Sign Up
