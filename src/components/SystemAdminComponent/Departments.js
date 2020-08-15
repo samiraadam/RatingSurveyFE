@@ -23,11 +23,10 @@ const useStyles = makeStyles((theme) => ({
 export default function Departments() {
   const classes = useStyles();
 
-
   const [departmentData, setData] = useState({departments: [], isFetching: false});
 
   const UNORATER_API_URL = 'http://localhost:8080/api'
-  const SYS_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk3Mjc3NjAxLCJleHAiOjE1OTc4ODI0MDF9.Wj6i2B-tidZXwsIIPs8ZCP6bDGOqYHKnR5AhbhzhT6e6Qrgu66WdbTUV7PMaBDEdmep5BY3dCVgLRf2dR6rifA'
+  const SYS_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk3MzA1MTIzLCJleHAiOjE1OTc5MDk5MjN9.kkOBRpztFWP6vnqvn45U7ZsyQ3E2QnljMgVCrsszVUR01QyiGjfUavgPaKc5ZJVYTPdb0Z1GY81RB5t9H68FBA'
 
   useEffect(() => {
     const fetchUsers = async () => {

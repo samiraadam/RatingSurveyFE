@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 // import Typography from '@material-ui/core/Typography';
@@ -20,55 +21,159 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Deposits() {
+function createDept() {
+  let search = window.location.search;
+  let params1 = new URLSearchParams(search);
+  let deptID = params1.get('departmentID');
+  let deptName = params1.get('departmentName')
+
+  const UNORATER_API_URL_1 = 'http://localhost:8080/api/systemadmin/createdepartment';
+
+
+  const UNORATER_API_URL_2 = 'http://localhost:8080/api/systemadmin/delete';
+
+
+
+  const SYS_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk3MzA1MTIzLCJleHAiOjE1OTc5MDk5MjN9.kkOBRpztFWP6vnqvn45U7ZsyQ3E2QnljMgVCrsszVUR01QyiGjfUavgPaKc5ZJVYTPdb0Z1GY81RB5t9H68FBA'
+  
+ 
+  if ( deptName != null &&  deptID == null) {
+
+    useEffect(() => {
+      axios.get(`${UNORATER_API_URL_1}` + '/' + `${deptName}`, {
+        headers: {
+          'Authorization': `Bearer ${SYS_ADMIN_TOKEN}` 
+        }})
+          .then(res => {
+              //setData(res.data);
+              //setLoad(true);
+              if (res.status === 200) {
+                alert(res.data.message)
+                window.location.reload(false)       
+              }
+          })
+          .catch(err => {
+              //setError(err.message);
+              //setLoad(true)
+              if (deptID != null) {
+                alert("Something went wrong: " + err.message)
+              }
+  
+          })
+          //window.history.replaceState(null, null, window.location.pathname);
+          
+    }, []);
+    
+  }
+
+}
+
+function delDept() {
+
+  let search = window.location.search;
+  let params1 = new URLSearchParams(search);
+  let deptID = params1.get('departmentID');
+  let deptName = params1.get('departmentName')
+  let newName = params1.get('newName')
+
+
+  const UNORATER_API_URL_1 = 'http://localhost:8080/api/systemadmin/createdepartment';
+  const UNORATER_API_URL_2 = 'http://localhost:8080/api/systemadmin/delete';
+  const SYS_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk3MzA1MTIzLCJleHAiOjE1OTc5MDk5MjN9.kkOBRpztFWP6vnqvn45U7ZsyQ3E2QnljMgVCrsszVUR01QyiGjfUavgPaKc5ZJVYTPdb0Z1GY81RB5t9H68FBA'
+  
+  if (deptName == null && deptID != null && newName == null) {
+
+    useEffect(() => {
+      axios.get(`${UNORATER_API_URL_2}` + '/' + `${deptID}`, {
+        headers: {
+          'Authorization': `Bearer ${SYS_ADMIN_TOKEN}` 
+        }})
+          .then(res => {
+              //setData(res.data);
+              //setLoad(true);
+              if (res.status === 200) {
+                alert(res.data.message)
+                window.location.reload(false)       
+              }
+          })
+          .catch(err => {
+              //setError(err.message);
+              //setLoad(true)
+              if (deptID != null) {
+                alert("Something went wrong: " + err.message)
+              }
+  
+          })
+          //window.history.replaceState(null, null, window.location.pathname);
+          
+    }, []);
+
+  }
+}
+
+
+function renameDept() {
+
+  let search = window.location.search;
+  let params1 = new URLSearchParams(search);
+  let deptID = params1.get('departmentID');
+  let newName = params1.get('newName')
+  let deptName = params1.get('departmentName')
+
+
+  const UNORATER_API_URL_1 = 'http://localhost:8080/api/systemadmin/createdepartment';
+  const UNORATER_API_URL_2 = 'http://localhost:8080/api/systemadmin/department/rename';
+  const SYS_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk3MzA1MTIzLCJleHAiOjE1OTc5MDk5MjN9.kkOBRpztFWP6vnqvn45U7ZsyQ3E2QnljMgVCrsszVUR01QyiGjfUavgPaKc5ZJVYTPdb0Z1GY81RB5t9H68FBA'
+  
+  if (newName != null && deptID != null && deptName == null) {
+
+    useEffect(() => {
+      axios.get(`${UNORATER_API_URL_2}` + '/' + `${deptID}` + '/' + `${newName}`, {
+        headers: {
+          'Authorization': `Bearer ${SYS_ADMIN_TOKEN}` 
+        }})
+          .then(res => {
+              //setData(res.data);
+              //setLoad(true);
+              if (res.status === 200) {
+                alert(res.data.message)
+                window.location.reload(false)       
+              }
+          })
+          .catch(err => {
+              //setError(err.message);
+              //setLoad(true)
+              if (deptID != null) {
+                alert("Something went wrong: " + err.message)
+              }
+  
+          })
+          //window.history.replaceState(null, null, window.location.pathname);
+          
+    }, []);
+
+  }
+}
+
+export default function DepartmentOperations() {
   const classes = useStyles();
-  const [addDept, setaddDept] = useState("");
-  const [deleteDept, setdeleteDept] = useState("");
-  const [renameDept, setrenameDept] = useState("");
+  const [createdDeptName, setCreatedDeptName] = useState("");
+  const [deletedDeptName, setDeleteDeptName] = useState("");
+  const [newDeptID, setNewDeptID] = useState("");
+  const [newDeptName, setNewDeptName] = useState("");
 
-  // function validateForm() {
-  //   return addDept.length > 0 || deleteDept.length > 0 || renameDept.length > 0;
-  // }
-  // // function validateAddForm() {
-  // //   return addDept.length > 0;
-  // // }
-  // // function validateDeleteForm() {
-  // //   return deleteDept.length > 0;
-  // // }
-  // // function validateRenameForm() {
-  // //   return renameDept.length > 0;
-  // // }
+  function validateAddDept() {
+    return createdDeptName.length > 0;
+  }
 
-  // function validateaddDept() {
-  //   return alert('The Department has been added.');
-  //   // if (addDept.length == 0 ){
-  //   //   return addDept.length > 0;
-  
-  //   // }
-  //   // else {
-  //   // alert('The Department has been added.');
-  //   // }
-  // }
-  // function validatedeleteDept() {
-  //   return alert('The Department has been deleted.');
-  //   // if (deleteDept.length == 0 ){
-  //   //   return deleteDept.length > 0;
-  
-  //   // }
-  //   // else {
-  //   // alert('The Department has been deleted.');
-  //   // }
-  // }
-  // function validatedrenameDept() {
-  //   return alert('The Department has been renamed.');
-  //   // if (renameDept.length == 0 ){
-  //   //   return renameDept.length > 0;
-  
-  //   // }
-  //   // else {
-  //   // alert('The Department has been renamed.');
-  //   // }
-  // }
+  function validateDeleteDept(){
+    return deletedDeptName.length > 0;
+  }
+
+  function validateRenameDept() {
+    return newDeptName.length > 0;
+  }
+
   return (
     // <React.Fragment>
     <div>
@@ -84,8 +189,8 @@ export default function Deposits() {
                 id="departmentName"
                 label="Department Name"
                 name="departmentName"
-                value={addDept}
-                onChange={e => setaddDept(e.target.value)}
+                value={createdDeptName}
+                onChange={e => setCreatedDeptName(e.target.value)}
                 autoComplete="lname"
               />
             </Grid>  
@@ -97,10 +202,8 @@ export default function Deposits() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            // style={{margin: "2px"}}
-            // href="Confirmation"
-            // onClick={validateaddDept()}
-            // disabled={!validateForm()}
+            onClick={createDept()}
+            disabled={!validateAddDept()}
           >
             Add Department
           </Button>
@@ -121,8 +224,8 @@ export default function Deposits() {
                 id="departmentID"
                 label="Department ID"
                 name="departmentID"
-                value={deleteDept}
-                onChange={e => setdeleteDept(e.target.value)}
+                value={deletedDeptName}
+                onChange={e => setDeleteDeptName(e.target.value)}
                 autoComplete="lname"
               />
             </Grid>  
@@ -134,10 +237,8 @@ export default function Deposits() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            // style={{margin: "2px"}}
-            // href="Confirmation"
-            // onClick={alert('The Department has been deleted.')}
-            // disabled={!validateForm()}
+            onClick={delDept()}
+            disabled={!validateDeleteDept()}
           >
             Delete Department
           </Button>
@@ -156,8 +257,8 @@ export default function Deposits() {
                 id="departmentID"
                 label="Department ID"
                 name="departmentID"
-                value={renameDept}
-                onChange={e => setrenameDept(e.target.value)}
+                value={newDeptID}
+                onChange={e => setNewDeptID(e.target.value)}
                 autoComplete="lname"
               />
           </Grid>
@@ -167,9 +268,11 @@ export default function Deposits() {
                 variant="outlined"
                 required
                 fullWidth
-                id="departmentName"
+                id="newName"
                 label="New Department Name"
-                name="departmentName"
+                name="newName"
+                value={newDeptName}
+                onChange={e => setNewDeptName(e.target.value)}
                 autoComplete="lname"
               />
           </Grid>
@@ -182,10 +285,9 @@ export default function Deposits() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            // style={{margin: "2px"}}
             // href="Confirmation"
-            // onClick={validatedrenameDept()}
-            // disabled={!validateForm()}
+            onClick={renameDept()}
+            disabled={!validateRenameDept()}
           >
             Rename Department
           </Button>
