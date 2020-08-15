@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 
 const drawerWidth = 240;
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -92,7 +93,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+export default function   SysAdminDashboard() {
+  
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {

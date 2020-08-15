@@ -72,6 +72,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function verifyEmailPassword(e, userNameorEmail, password) {
+  e.preventDefault();
+ 
+  const UNORATER_API_URL = 'http://localhost:8080/api/auth/adminsignin';
+  //const SYS_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTk3MzA1MTIzLCJleHAiOjE1OTc5MDk5MjN9.kkOBRpztFWP6vnqvn45U7ZsyQ3E2QnljMgVCrsszVUR01QyiGjfUavgPaKc5ZJVYTPdb0Z1GY81RB5t9H68FBA'
+ 
+  if (userNameorEmail != null && password != null) {
+
+    const url = `${UNORATER_API_URL}` + '/' +`${userNameorEmail}` + '/' + `${password}`;
+    // Create our request constructor with all the parameters we need
+    var request = new Request(url, {
+        method: 'GET',  
+    });
+
+    fetch(request)
+    .then(res => {
+      // Handle response we get from the API
+      if (res.status === 200) {
+        alert("Login in Successful")
+        window.location.href="/SystemAdminDashboard"
+        window.history.replaceState(null, null, window.location.pathname);
+      }else{
+        alert("Incorrect Cred: Please Try Again");
+      }
+    })
+  }  
+}
+
 export default function SignInSide() {
   const classes = useStyles();
   const [email, setEmail] = useState("");
@@ -128,20 +156,12 @@ export default function SignInSide() {
               variant="contained"
               color="primary"
               className={classes.submit}
-              href="SystemAdminDashboard"
               disabled={!validateForm()}
+              onClick={(e) => verifyEmailPassword(e, email, password)}
             >
               Sign In
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              
-            </Grid>
-      
+          
             <Grid
               container
               direction="row"
