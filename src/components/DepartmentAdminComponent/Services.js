@@ -1,5 +1,5 @@
-
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -9,19 +9,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
 
-// Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
-}
-
-const rows = [
-  createData(0, '1', 'Bookstore', 'Where Students are able to get textbooks and supplies'),
-  createData(1, '2', 'Cafe', 'Place to grab food and drinks'),
-  createData(2, '3', 'Gateway', 'Able to get assitance with financial aid'),
-  createData(3, '4', 'Admissions', 'The Admissions Office helps with new and transferring students'),
-  createData(4, '5', 'Libarary', 'Where students can access research materials'),
-  // createData(4, '5', 'Bruce Springsteen', 'No'),
-];
 
 function preventDefault(event) {
   event.preventDefault();
@@ -33,25 +20,53 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Orders() {
+export default function Services() {
+
   const classes = useStyles();
+
+  const [servicesData, setData] = useState({services: [], isFetching: false});
+
+  const UNORATER_API_URL = 'http://localhost:8080/api/departmentadmin/services'
+  const SYS_ADMIN_TOKEN =  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNTk3NDQyMTAxLCJleHAiOjE1OTgwNDY5MDF9.2svz_aOCiIQDDggZW4xwV4qk87g-05eSkq1pSfDcO88bMIl7G1Ca_2TJ9dDMA6BMH3N-wHUjHSZ96FoJ-vPJDg'
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+        try {
+            setData({services: servicesData.services, isFetching: true});
+            const response = await axios.get(`${UNORATER_API_URL}`, {
+              headers: {
+                'Authorization': `Bearer ${SYS_ADMIN_TOKEN}` 
+              }});
+            setData({services: response.data, isFetching: false});
+        } catch (e) {
+            console.log(e);
+            setData({services: servicesData.services, isFetching: false});
+        }
+    };
+    fetchUsers();
+  }, []);
+
+  if (servicesData.isFetching) return(<h1>LOADING SERVICES...</h1>);
+
   return (
     <React.Fragment>
       <Title>Services</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
+           <TableCell>Department ID</TableCell>
             <TableCell>Service ID</TableCell>
             <TableCell>Service Name</TableCell>
             <TableCell>Service Description</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.shipTo}</TableCell>
+          {servicesData.services.map((row) => (
+            <TableRow key={row.serviceID}>
+              <TableCell>{row.departmentID}</TableCell>
+              <TableCell>{row.serviceID}</TableCell>
+              <TableCell>{row.serviceName}</TableCell>
+              <TableCell>{row.serviceDescription}</TableCell>
             </TableRow>
           ))}
         </TableBody>

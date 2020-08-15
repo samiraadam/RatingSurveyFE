@@ -45,7 +45,7 @@ export default function Users() {
     fetchUsers();
   }, []);
 
-  if (userData.isFetching) return(<h1>LOADING...</h1>);
+  if (userData.isFetching) return(<h1>LOADING USERS...</h1>);
 
 
   return (
