@@ -1,16 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Panel from 'react-bootstrap/lib/Panel'
-import axios from 'axios'
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
 import PersonIcon from '@material-ui/icons/Person';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles'
@@ -50,6 +43,10 @@ function submitReview(e, serviceID, reviewText, score) {
         alert("Review posted") 
         window.location.reload(false)      
       }
+      if(res.status === 403) {
+        alert("A inappropriate word was detected. Please try again.")
+        window.location.reload(false)
+      }
     })
     .catch(err => {
       alert("Something went wrong: " + err.message)
@@ -58,9 +55,8 @@ function submitReview(e, serviceID, reviewText, score) {
 }
 
 export const Reviews = props => {
-  const classes = useStyles()
   console.log('props', props)
-  const [deptData, setDeptData] = useState({
+  const [deptData] = useState({
     serviceID: props.data.serviceID,
     serviceName: props.data.serviceName,
     serviceDescription: props.data.serviceDescription,
@@ -69,16 +65,9 @@ export const Reviews = props => {
   })
   console.log(deptData)
   console.log('reviewText' , deptData.reviews)
-  const [dense, setDense] = React.useState(false);
+  const [dense] = React.useState(false);
   const [reviewText, setReviewText] = useState("");
   const [score, setScore] = useState("");
-  function generate(element) {
-    return [0, 1, 2].map((value) =>
-      React.cloneElement(element, {
-        key: value,
-      }),
-    );
-  }
 
   return (
 <div>
